@@ -83,7 +83,7 @@ const HpSheet = () => {
     ])
   );
   return (
-    <div>
+    <NotepadContainerStyling>
       <Styledh3 key="sus">Suspect</Styledh3>
       <SheetRows
         key="sus-r"
@@ -106,7 +106,7 @@ const HpSheet = () => {
           updateCheckbox(locations, setLocations, key, col)
         }
       />
-    </div>
+    </NotepadContainerStyling>
   );
 };
 
@@ -134,4 +134,9 @@ const ClueGroupContainerStyling = styled.div`
 const Styledh3 = styled.h3`
   margin-bottom: 2px;
   border-bottom: 1px solid grey;
+`;
+
+const NotepadContainerStyling = styled.div`
+  max-width: 500px;
+  margin: 10px auto;
 `;
