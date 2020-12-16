@@ -1,8 +1,9 @@
 import React, { useState, memo } from "react";
+import styled from "styled-components";
 
 const initRow = (rows) =>
   rows.reduce((obj, row) => {
-    obj[row] = [0, 0, 0, 0, 0];
+    obj[row] = [0, 0, 0, 0, 0, 0];
     return obj;
   }, {});
 
@@ -12,26 +13,29 @@ const getCheckboxString = (state) => {
   } else if (state === 2) {
     return "O";
   }
-  return "?";
+  return "";
 };
 
 const SheetRows = memo(({ rows, handleClick }) => (
-  <div>
+  <ClueGroupContainerStyling>
     {Object.entries(rows).map(([key, checks]) => {
       return (
-        <div key={key}>
-          <div>{key}</div>
+        <ClueRowStyling key={key}>
+          <ClueTitleStyling>{key}</ClueTitleStyling>
           {checks.map((check, index) => {
             return (
-              <div key={index} onClick={() => handleClick(key, index)}>
+              <OptionsStyling
+                key={index}
+                onClick={() => handleClick(key, index)}
+              >
                 {getCheckboxString(check)}
-              </div>
+              </OptionsStyling>
             );
           })}
-        </div>
+        </ClueRowStyling>
       );
     })}
-  </div>
+  </ClueGroupContainerStyling>
 ));
 
 const updateCheckbox = (group, setGroup, key, column) => {
@@ -80,7 +84,7 @@ const HpSheet = () => {
   );
   return (
     <div>
-      <div key="sus">Suspect</div>
+      <Styledh3 key="sus">Suspect</Styledh3>
       <SheetRows
         key="sus-r"
         rows={suspects}
@@ -88,13 +92,13 @@ const HpSheet = () => {
           updateCheckbox(suspects, setSuspects, key, col)
         }
       />
-      <div key="item">Item</div>
+      <Styledh3 key="item">Item</Styledh3>
       <SheetRows
         key="item-r"
         rows={items}
         handleClick={(key, col) => updateCheckbox(items, setItems, key, col)}
       />
-      <div key="loc">Location</div>
+      <Styledh3 key="loc">Location</Styledh3>
       <SheetRows
         key="loc-r"
         rows={locations}
@@ -107,3 +111,27 @@ const HpSheet = () => {
 };
 
 export default HpSheet;
+
+// Styles //
+const ClueRowStyling = styled.div`
+  display: flex;
+  border-bottom: 1px solid grey;
+`;
+const ClueTitleStyling = styled.div`
+  width: 60vw;
+  max-width: 300px;
+`;
+const OptionsStyling = styled.div`
+  width: calc(40vw / 5);
+  text-align: center;
+  max-width: 40px;
+  border-right: 1px solid grey;
+  cursor: pointer;
+`;
+const ClueGroupContainerStyling = styled.div`
+  margin-bottom: 10px;
+`;
+const Styledh3 = styled.h3`
+  margin-bottom: 2px;
+  border-bottom: 1px solid grey;
+`;
