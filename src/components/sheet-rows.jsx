@@ -13,6 +13,9 @@ const getCheckboxString = (state) => {
 const SheetRows = memo(({ rows, handleClick }) => (
   <ClueGroupContainerStyling>
     {Object.entries(rows).map(([key, checks]) => {
+      if (!Array.isArray(checks)) {
+        return null;
+      }
       return (
         <ClueRowStyling key={key}>
           <ClueTitleStyling>{key}</ClueTitleStyling>
