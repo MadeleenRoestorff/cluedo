@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
+export const checkboxMarks = ["", "X", "O", "✓"];
+
 const getCheckboxString = (state) => {
-  if (state === 1) {
-    return "X";
-  } else if (state === 2) {
-    return "O";
+  if (state < 0 || state >= checkboxMarks) {
+    state = 0;
   }
-  return "";
+  return checkboxMarks[state];
 };
 
 const SheetRows = memo(({ rows, handleClick }) => (

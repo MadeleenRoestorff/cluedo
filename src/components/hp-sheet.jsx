@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import SheetRows from "./sheet-rows";
+import SheetRows, { checkboxMarks } from "./sheet-rows";
 
 const initRow = (rows) =>
   rows.reduce((obj, row) => {
@@ -10,7 +10,7 @@ const initRow = (rows) =>
 
 const updateCheckbox = (group, setGroup, key, column) => {
   let newVal = group[key][column] + 1;
-  if (newVal > 2) {
+  if (newVal >= checkboxMarks.length || newVal < 0) {
     newVal = 0;
   }
   let newGroup = { ...group };
